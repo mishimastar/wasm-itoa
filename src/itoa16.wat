@@ -1,18 +1,6 @@
-;; Simple `itoa` implementation in WebAssembly Text.
-;;
-;; Eli Bendersky [https://eli.thegreenplace.net]
-;; This code is in the public domain.
 (module
-    ;; Logging function imported from the environment; will print a single
-    ;; i32.
-    ;; (import "env" "log" (func $log (param i32)))
-
-    ;; Declare linear memory and export it to host. The offset returned by
-    ;; $itoa is relative to this memory.
     (memory (export "memory") 1)
 
-    ;; Using some memory for a number-->digit ASCII lookup-table, and then the
-    ;; space for writing the result of $itoa.
     (data (i32.const 0) "0123456789abcdef")
     (global $itoa_out_buf i32 (i32.const 16))
 
