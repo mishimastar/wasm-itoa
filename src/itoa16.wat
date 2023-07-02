@@ -33,7 +33,7 @@
                 (i32.const 1)))
 
         (loop $writeloop (block $breakwriteloop
-            ;; digit <- $num % 10
+            ;; digit <- $num % 16
             (local.set $digit (i64.rem_u (local.get $num) (i64.const 16)))
             ;; set the char value from the lookup table of digit chars
             (local.set $dchar (i64.load8_u offset=0 (i32.wrap_i64 (local.get $digit))))
@@ -41,8 +41,8 @@
             ;; mem[writeidx] <- dchar
             (i64.store8 (local.get $writeidx) (local.get $dchar))
 
-            ;; num <- num / 10
-            (local.set $num (i64.div_u (local.get $num) (i64.const 16)))
+            ;; num <- num / 16
+            (local.set $num (i64.shr_u (local.get $num) (i64.const 4)))
 
             ;; If after writing a number we see we wrote to the first index in
             ;; the output buffer, we're done.
