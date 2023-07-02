@@ -34,7 +34,7 @@
 
         (loop $writeloop (block $breakwriteloop
             ;; digit <- $num % 16
-            (local.set $digit (i64.rem_u (local.get $num) (i64.const 16)))
+            (local.set $digit (i64.and (local.get $num) (i64.const 15)))
             ;; set the char value from the lookup table of digit chars
             (local.set $dchar (i64.load8_u offset=0 (i32.wrap_i64 (local.get $digit))))
             
